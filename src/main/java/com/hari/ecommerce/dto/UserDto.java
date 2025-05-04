@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.hari.ecommerce.entity.OrderItem;
-import com.hari.ecommerce.enums.UserRole;
 
 import lombok.*;
 
@@ -27,12 +25,15 @@ public class UserDto {
     
     private String phonenumber;
 
-    private UserRole role;
-    private List<OrderItem> orderItemList;
+    private String role;
+    private List<OrderItemDto> orderItemList;
 
     private AddressDto address;
 
     private final LocalDateTime createdAt= LocalDateTime.now();
+
+
+  
 
 
 }
