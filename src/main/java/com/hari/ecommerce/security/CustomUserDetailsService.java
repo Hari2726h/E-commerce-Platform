@@ -18,7 +18,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
         User user=userRepo.findByEmail(username)
         .orElseThrow(()-> new NotFoundException("User/ Email Not found"));
         return AuthUser.builder()

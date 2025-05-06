@@ -40,8 +40,8 @@ public class EntityDtoMapper {
 
     public CategoryDto mapCategoryToDtoBasic(Category category){
         CategoryDto categoryDto=new CategoryDto();
-        categoryDto.setId(categoryDto.getId());
-        categoryDto.setName(categoryDto.getName());
+        categoryDto.setId(category.getId());
+        categoryDto.setName(category.getName());
         return categoryDto;
     }
 
@@ -76,7 +76,7 @@ public class EntityDtoMapper {
     
     public OrderItemDto mapOrderItemToDtoPlusProduct(OrderItem orderItem){
         OrderItemDto orderItemDto=mapOrderToItemDtoBasic(orderItem);
-        if(orderItemDto.getProduct()!=null){
+        if(orderItem.getProduct()!=null){
             ProductDto productDto=mapProductToDtoBasic(orderItem.getProduct());
             orderItemDto.setProduct(productDto);
         }
@@ -86,7 +86,7 @@ public class EntityDtoMapper {
     
     public OrderItemDto mapOrderItemToDtoPlusProductAndUser(OrderItem orderItem){
         OrderItemDto orderItemDto=mapOrderItemToDtoPlusProduct(orderItem);
-        if(orderItemDto.getUser()!=null){
+        if(orderItem.getUser()!=null){
             UserDto userDto=mapUserToDtoBasic(orderItem.getUser());
             orderItemDto.setUser(userDto);
         }
