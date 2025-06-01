@@ -1,20 +1,31 @@
-import React,{Component} from "react";
-import { Navigate,useLocation } from "react-router-dom";
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import ApiService from "./ApiService";
 
-export const protectedRoute=({element: Component})=>{
-    const location=useLocation();
-    return ApiService.isAuthenticated()?(
-        Component
-    ):(
-        <Navigate to="/login" replace state={{from:location}}/>
-    );
+// Custom wrapper to use hook in non-component
+function withLocationGuard(ComponentCheck) {
+  return function WrappedComponent(props) {
+    const location = useLocation();
+    return <ComponentCheck location={location} {...props} />;
+  };
+}
+
+const ProtectedRouteComponent = ({ element, location }) => {
+  return ApiService.isAuthenticated() ? (
+    element
+  ) : (
+    <Navigate to="/login" replace state={{ from: location }} />
+  );
 };
-export const adminRoute=({element: Component})=>{
-    const location=useLocation();
-    return ApiService.isAuthenticated()?(
-        Component
-    ):(
-        <Navigate to="/login" replace state={{from:location}}/>
-    );
+
+const AdminRouteComponent = ({ element, location }) => {
+  return ApiService.isAuthenticated() ? (
+    element
+  ) : (
+    <Navigate to="/login" replace state={{ from: location }} />
+  );
 };
+
+// Export wrapped versions
+export const protectedRoute = withLocationGuard(ProtectedRouteComponent);
+export const adminRoute = withLocationGuard(AdminRouteComponent);
